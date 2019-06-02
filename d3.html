@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+</head>
+<body>
+    <h1>Data Visualisation</h1>
+
+    <h2>D3 and Scalable Vector Graphics</h2>
+
+    <div id="draw-here"></div>
+
+    <script>
+    var w = 500; // viewpoint size is managed here. More circles = increased width  
+    var h = 200;
+    var data = [40, 50, 10, 30, 20]; // Array - data to be provided to svg
+    //Create SVG element
+    var svg = d3.select("#draw-here") // d3 will attach itself to the <div>
+        .append("svg")      // d3 allows you to chain related functions together
+        .attr("width", w)   // via use of a dot (.)
+        .attr("height", h); // Both width & height attributes assigned to svg
+    svg.selectAll("circle") // svg variable created on line 23 will select all circles 
+        .data(data)         // Use array data on line 20 & pass as a variable in the data() function   
+        .enter()            // d3 enter() to bind to array data to the circles   
+        .append("circle")
+        .attr("cx", function (d, i) {  // create a circle (x) for each number in the array - line 20
+            return 50 + (i * 100);     // d = array number (line 20) & i = index of the array numbers   
+        })                             // line 32 - x entry is 150 units to right of predecessor
+        .attr("cy", h / 2)             // y = splits viewport height into 2     
+        .attr("r", function (d) {
+            return d;
+        });
+    </script>
+</body>
+</html>
